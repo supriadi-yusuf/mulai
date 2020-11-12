@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -34,12 +33,12 @@ func TestCreateTablePostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -47,13 +46,13 @@ func TestCreateTablePostgresql(t *testing.T) {
 	cmdStr := "drop table if exists tb_student"
 	_, err = db.Exec(cmdStr)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	cmdStr = "create table if not exists tb_student(id varchar(5),	name varchar(255),age int,grade int)"
 	_, err = db.Exec(cmdStr)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 }
@@ -67,12 +66,12 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -83,7 +82,7 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -92,7 +91,7 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read table")
@@ -100,7 +99,7 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, fmt.Sprintf("ID='%s'", student.ID), &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) < 1 {
@@ -122,12 +121,12 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -138,7 +137,7 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -147,7 +146,7 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -166,7 +165,7 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, "id='C001'"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -174,7 +173,7 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "id='C001'", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if data[0].Name != CName || data[0].Age != CAge || data[0].Grade != CGrade {
@@ -192,12 +191,12 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -208,7 +207,7 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -217,14 +216,14 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("delete one records from table")
 
 	model.SetNewData(nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, "id='C001'"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -233,7 +232,7 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "id='C001'", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) != 0 {
@@ -251,12 +250,12 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -267,7 +266,7 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -276,21 +275,21 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -307,7 +306,7 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, "grade=5"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -315,7 +314,7 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "grade=5", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) == 0 {
@@ -342,12 +341,12 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -358,7 +357,7 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -367,21 +366,21 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -398,7 +397,7 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -406,7 +405,7 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) == 0 {
@@ -433,12 +432,12 @@ func TestDeleteAllRecordsPostgresql(t *testing.T) {
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, psqlMaxConnections, psqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := postgres.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -449,7 +448,7 @@ func TestDeleteAllRecordsPostgresql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -458,28 +457,28 @@ func TestDeleteAllRecordsPostgresql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 2}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("delete all records from table")
 
 	model.SetNewData(nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -487,7 +486,7 @@ func TestDeleteAllRecordsPostgresql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) != 0 {

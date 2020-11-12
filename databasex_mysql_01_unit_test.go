@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -33,12 +32,12 @@ func TestCreateTableMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -46,13 +45,13 @@ func TestCreateTableMySql(t *testing.T) {
 	cmdStr := "drop table if exists tb_student"
 	_, err = db.Exec(cmdStr)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	cmdStr = "create table if not exists tb_student(id varchar(5),	name varchar(255),age int,grade int)"
 	_, err = db.Exec(cmdStr)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 }
@@ -66,12 +65,12 @@ func TestAddOneRecordMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -82,7 +81,7 @@ func TestAddOneRecordMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -91,7 +90,7 @@ func TestAddOneRecordMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read table")
@@ -99,7 +98,7 @@ func TestAddOneRecordMySql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, fmt.Sprintf("ID='%s'", student.ID), &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) < 1 {
@@ -121,12 +120,12 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -137,7 +136,7 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -146,7 +145,7 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -165,7 +164,7 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, "id='C001'"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -173,7 +172,7 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "id='C001'", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if data[0].Name != CName || data[0].Age != CAge || data[0].Grade != CGrade {
@@ -191,12 +190,12 @@ func TestDeleteOneRecordMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -207,7 +206,7 @@ func TestDeleteOneRecordMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("insert one record into table")
@@ -216,14 +215,14 @@ func TestDeleteOneRecordMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("delete one records from table")
 
 	model.SetNewData(nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, "id='C001'"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -232,7 +231,7 @@ func TestDeleteOneRecordMySql(t *testing.T) {
 
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "id='C001'", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) != 0 {
@@ -250,12 +249,12 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -266,7 +265,7 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -275,21 +274,21 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -306,7 +305,7 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, "grade=5"); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -314,7 +313,7 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "grade=5", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) == 0 {
@@ -341,12 +340,12 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -357,7 +356,7 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -366,21 +365,21 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("update record")
@@ -397,7 +396,7 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 
 	model.SetNewData(keypair)
 	if _, err = sqlOp.UpdateDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -405,7 +404,7 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) == 0 {
@@ -432,12 +431,12 @@ func TestDeleteAllRecordsMySql(t *testing.T) {
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		mysqlMaxConnections, mysqlMaxIdle)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	db, err := currDb.GetDbConnection()
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	defer db.Close()
@@ -448,7 +447,7 @@ func TestDeleteAllRecordsMySql(t *testing.T) {
 
 	model := databasex.NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("add several data")
@@ -457,28 +456,28 @@ func TestDeleteAllRecordsMySql(t *testing.T) {
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C002", "maman", 8, 2}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	student = Student{"C003", "yuli", 10, 5}
 	model.SetNewData(student)
 
 	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("delete all records from table")
 
 	model.SetNewData(nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	t.Logf("read from table")
@@ -486,7 +485,7 @@ func TestDeleteAllRecordsMySql(t *testing.T) {
 	data := make([]Student, 0)
 	model.SetNewData(Student{})
 	if err = sqlOp.SelectDb(context.Background(), model, "", &data); err != nil {
-		log.Fatalln(err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if len(data) != 0 {
