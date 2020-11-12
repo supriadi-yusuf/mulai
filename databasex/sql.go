@@ -2,6 +2,7 @@ package databasex
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"reflect"
@@ -40,12 +41,18 @@ import (
 type ISqlOperation interface {
 	// insert data into table
 	InsertDb(ctx context.Context, model IModel) error
+	InsertPool(ctx context.Context, conn *sql.Conn, model IModel) error
+	InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error
 
 	// delete data from table
 	DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error)
+	DeletePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
+	DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
 
 	// update data on table
 	UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error)
+	UpdatePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
+	UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
 
 	// retrieve data from table
 	SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error
@@ -79,6 +86,54 @@ func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
 	return nil
 }
 
+func (s *simpleSQL) InsertPool(ctx context.Context, conn *sql.Conn, model IModel) error {
+
+	if err := inspectContext(ctx); err != nil {
+		return err
+	}
+
+	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().createValuesMark)
+	if err != nil {
+		return err
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return err
+	}*/
+
+	_, err = conn.ExecContext(ctx, cmdStr, values...)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *simpleSQL) InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error {
+
+	if err := inspectContext(ctx); err != nil {
+		return err
+	}
+
+	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().createValuesMark)
+	if err != nil {
+		return err
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return err
+	}*/
+
+	_, err = tx.ExecContext(ctx, cmdStr, values...)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error) {
 
 	if err := inspectContext(ctx); err != nil {
@@ -96,6 +151,58 @@ func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string)
 	}
 
 	rst, err := db.ExecContext(ctx, cmdStr)
+	if err != nil {
+		return 0, err
+	}
+
+	affectRow, _ := rst.RowsAffected()
+
+	return affectRow, nil
+}
+
+func (s *simpleSQL) DeletePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+
+	if err := inspectContext(ctx); err != nil {
+		return 0, err
+	}
+
+	cmdStr := fmt.Sprintf("delete from %s", model.GetTableName())
+	if criteria != "" {
+		cmdStr = fmt.Sprintf("%s where %s", cmdStr, criteria)
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return 0, err
+	}*/
+
+	rst, err := conn.ExecContext(ctx, cmdStr)
+	if err != nil {
+		return 0, err
+	}
+
+	affectRow, _ := rst.RowsAffected()
+
+	return affectRow, nil
+}
+
+func (s *simpleSQL) DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error) {
+
+	if err := inspectContext(ctx); err != nil {
+		return 0, err
+	}
+
+	cmdStr := fmt.Sprintf("delete from %s", model.GetTableName())
+	if criteria != "" {
+		cmdStr = fmt.Sprintf("%s where %s", cmdStr, criteria)
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return 0, err
+	}*/
+
+	rst, err := tx.ExecContext(ctx, cmdStr)
 	if err != nil {
 		return 0, err
 	}
@@ -128,6 +235,70 @@ func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string)
 	}
 
 	rst, err := db.ExecContext(ctx, cmdStr)
+	if err != nil {
+		return 0, err
+	}
+
+	affectRow, _ := rst.RowsAffected()
+
+	return affectRow, nil
+}
+
+func (s *simpleSQL) UpdatePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+
+	if err := inspectContext(ctx); err != nil {
+		return 0, err
+	}
+
+	cmdStr, err := createUpdateCommand(model)
+	if err != nil {
+		return 0, err
+	}
+
+	//fmt.Println(cmdStr)
+
+	if criteria != "" {
+		cmdStr = fmt.Sprintf("%s where %s", cmdStr, criteria)
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return 0, err
+	}*/
+
+	rst, err := conn.ExecContext(ctx, cmdStr)
+	if err != nil {
+		return 0, err
+	}
+
+	affectRow, _ := rst.RowsAffected()
+
+	return affectRow, nil
+}
+
+func (s *simpleSQL) UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error) {
+
+	if err := inspectContext(ctx); err != nil {
+		return 0, err
+	}
+
+	cmdStr, err := createUpdateCommand(model)
+	if err != nil {
+		return 0, err
+	}
+
+	//fmt.Println(cmdStr)
+
+	if criteria != "" {
+		cmdStr = fmt.Sprintf("%s where %s", cmdStr, criteria)
+	}
+
+	/*db, err := s.getDb().GetDbConnection()
+	if err != nil {
+		return 0, err
+	}*/
+
+	rst, err := tx.ExecContext(ctx, cmdStr)
 	if err != nil {
 		return 0, err
 	}
