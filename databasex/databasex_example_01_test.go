@@ -8,7 +8,7 @@ import (
 	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
-func Example_insert() {
+func Example_insert01() {
 
 	type Student struct {
 		ID    string
@@ -18,7 +18,7 @@ func Example_insert() {
 	}
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
-		"?sslmode=disable", 100, 5)
+		"?sslmode=disable", 0, 0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,11 +45,11 @@ func Example_insert() {
 
 }
 
-func Example_delete() {
+func Example_delete01() {
 
 	// connect to postgresql with database db_belajar_golang
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
-		"?sslmode=disable", 100, 5)
+		"?sslmode=disable", 0, 0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,10 +80,10 @@ func Example_delete() {
 
 }
 
-func Example_update() {
+func Example_update01() {
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
-		"?sslmode=disable", 100, 5)
+		"?sslmode=disable", 0, 0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -118,7 +118,7 @@ func Example_update() {
 
 }
 
-func Example_select() {
+func Example_select01() {
 
 	type Student struct {
 		ID    string
@@ -128,7 +128,7 @@ func Example_select() {
 	}
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
-		"?sslmode=disable", 100, 5)
+		"?sslmode=disable", 0, 0)
 	if err != nil {
 		log.Fatal(err)
 	}
