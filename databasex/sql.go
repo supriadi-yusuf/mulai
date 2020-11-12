@@ -42,10 +42,10 @@ type ISqlOperation interface {
 	InsertDb(ctx context.Context, model IModel) error
 
 	// delete data from table
-	DeleteDb(ctx context.Context, model IModel, criteria string) (int, error)
+	DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error)
 
 	// update data on table
-	UpdateDb(ctx context.Context, model IModel, criteria string) (int, error)
+	UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error)
 
 	// retrieve data from table
 	SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error
@@ -79,7 +79,7 @@ func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
 	return nil
 }
 
-func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string) (int, error) {
+func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error) {
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
@@ -102,10 +102,10 @@ func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string)
 
 	affectRow, _ := rst.RowsAffected()
 
-	return int(affectRow), nil
+	return affectRow, nil
 }
 
-func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string) (int, error) {
+func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error) {
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
@@ -134,7 +134,7 @@ func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string)
 
 	affectRow, _ := rst.RowsAffected()
 
-	return int(affectRow), nil
+	return affectRow, nil
 }
 
 func (s *simpleSQL) SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error {
