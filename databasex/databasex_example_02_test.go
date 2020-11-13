@@ -29,6 +29,7 @@ func Example_insert02() {
 
 	defer db.Close()
 
+	// get new connection
 	conn, err := db.Conn(context.Background())
 	if err != nil {
 		log.Fatal(err)
@@ -68,6 +69,7 @@ func Example_delete02() {
 
 	defer db.Close()
 
+	// get new connection
 	conn, err := db.Conn(context.Background())
 	if err != nil {
 		log.Fatal(err)
@@ -108,6 +110,7 @@ func Example_update02() {
 
 	defer db.Close()
 
+	// get new connection
 	conn, err := db.Conn(context.Background())
 	if err != nil {
 		log.Fatal(err)

@@ -29,6 +29,7 @@ func Example_insert03() {
 
 	defer db.Close()
 
+	// start transaction
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		log.Fatal(err)
@@ -67,6 +68,7 @@ func Example_delete03() {
 
 	defer db.Close()
 
+	// start transaction
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		log.Fatal(err)
@@ -107,6 +109,7 @@ func Example_update03() {
 
 	defer db.Close()
 
+	// start transaction
 	tx, err := db.BeginTx(context.Background(), nil)
 	if err != nil {
 		log.Fatal(err)
