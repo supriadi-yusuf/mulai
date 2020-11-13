@@ -118,7 +118,7 @@ func Example_update01() {
 
 }
 
-func Example_select01() {
+func Example_select() {
 
 	type Student struct {
 		ID    string
