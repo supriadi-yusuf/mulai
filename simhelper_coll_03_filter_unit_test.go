@@ -14,12 +14,12 @@ func Test_Filter_01(t *testing.T) {
 			return i%2 == 1
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.([]int)).IsEqual([]int{1, 3, 5})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -36,13 +36,13 @@ func Test_Filter_02(t *testing.T) {
 			return i%2 == 1
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.(map[string]int)).IsEqual(
 		map[string]int{"one": 1, "three": 3, "five": 5})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -58,12 +58,12 @@ func Test_Filter_03(t *testing.T) {
 			return strings.Contains(i, "t")
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.([]string)).IsEqual([]string{"t1", "t2", "t4"})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -80,13 +80,13 @@ func Test_Filter_04(t *testing.T) {
 			return strings.Contains(i, "t")
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.(map[string]string)).IsEqual(
 		map[string]string{"one": "t1", "two": "t2", "four": "t4"})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {

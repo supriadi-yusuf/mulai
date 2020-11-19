@@ -10,7 +10,7 @@ func Test_value_03(t *testing.T) {
 
 	res, err := simhelper.NewValue(int(10)).ToFloat()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 10 {
@@ -19,7 +19,7 @@ func Test_value_03(t *testing.T) {
 
 	res, err = simhelper.NewValue(int(-10)).ToFloat()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != -10 {
@@ -28,7 +28,7 @@ func Test_value_03(t *testing.T) {
 
 	res, err = simhelper.NewValue(1.8).ToFloat()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 1.8 {
@@ -37,7 +37,7 @@ func Test_value_03(t *testing.T) {
 
 	_, err = simhelper.NewValue("test").ToFloat()
 	if err == nil {
-		t.Errorf("it should be wrong result\n")
+		t.Errorf("it should be error\n")
 	}
 
 }

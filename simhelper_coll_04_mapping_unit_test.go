@@ -13,12 +13,12 @@ func Test_Mapping_01(t *testing.T) {
 		return i%2 == 1
 	})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.([]bool)).IsEqual([]bool{true, false, true, false, true, false})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -35,13 +35,13 @@ func Test_Mapping_02(t *testing.T) {
 			return i%2 == 1
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.(map[string]bool)).IsEqual(
 		map[string]bool{"one": true, "two": false, "three": true, "four": false})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -61,12 +61,12 @@ func Test_Mapping_03(t *testing.T) {
 			return "0" + i
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.([]string)).IsEqual([]string{"s1", "s2", "03", "s4"})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {
@@ -86,13 +86,13 @@ func Test_Mapping_04(t *testing.T) {
 			return "0" + i
 		})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	resbol, err := simhelper.NewCollection(res.(map[int]string)).IsEqual(
 		map[int]string{1: "s1", 2: "s2", 3: "03", 4: "s4"})
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if !resbol {

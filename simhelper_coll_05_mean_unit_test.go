@@ -9,7 +9,7 @@ import (
 func Test_Mean_01(t *testing.T) {
 	res, err := simhelper.NewCollection([]int{1, 2, 3, 4}).MeanValue()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 2.5 {
@@ -21,7 +21,7 @@ func Test_Mean_02(t *testing.T) {
 	res, err := simhelper.NewCollection(
 		map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).MeanValue()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 2.5 {
@@ -32,7 +32,7 @@ func Test_Mean_02(t *testing.T) {
 func Test_Mean_03(t *testing.T) {
 	res, err := simhelper.NewCollection([]float32{1, 2, 3, 4}).MeanValue()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 2.5 {
@@ -44,7 +44,7 @@ func Test_Mean_04(t *testing.T) {
 	res, err := simhelper.NewCollection(
 		map[string]float32{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).MeanValue()
 	if err != nil {
-		t.Errorf("%s\n", err.Error())
+		t.Fatalf("%s\n", err.Error())
 	}
 
 	if res != 2.5 {
