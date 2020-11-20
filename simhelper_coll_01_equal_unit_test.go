@@ -81,3 +81,37 @@ func Test_Equal_07(t *testing.T) {
 		t.Errorf("%s\n", err.Error())
 	}
 }
+
+type structtest struct {
+	Name   string // beginning of field name must be capital
+	Age    int
+	Height float32
+}
+
+func Test_Equal_08(t *testing.T) {
+
+	ps1 := structtest{"iwan", 10, 1.50}
+	ps2 := structtest{"iwan", 10, 1.50}
+	result, err := simhelper.NewCollection(ps1).IsEqual(ps2)
+	if err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	if !result {
+
+		t.Errorf("Wrong result\n")
+
+	}
+
+	ps3 := structtest{"iwan", 1, 1.5}
+	result, err = simhelper.NewCollection(ps1).IsEqual(ps3)
+	if err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	if result {
+
+		t.Errorf("Wrong result\n")
+
+	}
+}
