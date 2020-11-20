@@ -128,19 +128,23 @@ func (c *myCollection) IsEqual(data interface{}) (result bool, err error) {
 	//check type of collection's data
 	collectionType := reflect.TypeOf(c.data)
 	if collectionType.Kind() != reflect.Array && collectionType.Kind() != reflect.Slice &&
-		collectionType.Kind() != reflect.Map {
-		panic("collection must be array, slice or map")
+		collectionType.Kind() != reflect.Map && collectionType.Kind() != reflect.Struct {
+		panic("collection must be array, slice, struct or map")
 	}
 
 	//check type of input parameter
 	paramType := reflect.TypeOf(data)
-	if paramType.Kind() != reflect.Array && paramType.Kind() != reflect.Slice &&
+	/*if paramType.Kind() != reflect.Array && paramType.Kind() != reflect.Slice &&
 		paramType.Kind() != reflect.Map && paramType.Kind() != reflect.Struct {
 		panic("input param must be array, slice, struct or map")
-	}
+	}*/
 
 	if paramType != collectionType {
 		panic("types are different")
+	}
+
+	if collectionType.Kind() == reflect.Struct {
+		return c.isEqualInStruct(data)
 	}
 
 	collectionValue := reflect.ValueOf(c.data)
@@ -151,10 +155,6 @@ func (c *myCollection) IsEqual(data interface{}) (result bool, err error) {
 
 	if collectionType.Kind() == reflect.Map {
 		return c.isEqualInMap(data)
-	}
-
-	if collectionType.Kind() == reflect.Struct {
-		return c.isEqualInStruct(data)
 	}
 
 	return c.isEqualInSliceOfArray(data)
