@@ -135,8 +135,8 @@ func (c *myCollection) IsEqual(data interface{}) (result bool, err error) {
 	//check type of input parameter
 	paramType := reflect.TypeOf(data)
 	if paramType.Kind() != reflect.Array && paramType.Kind() != reflect.Slice &&
-		paramType.Kind() != reflect.Map {
-		panic("input param must be array, slice or map")
+		paramType.Kind() != reflect.Map && paramType.Kind() != reflect.Struct {
+		panic("input param must be array, slice, struct or map")
 	}
 
 	if paramType != collectionType {
@@ -153,7 +153,12 @@ func (c *myCollection) IsEqual(data interface{}) (result bool, err error) {
 		return c.isEqualInMap(data)
 	}
 
+	if collectionType.Kind() == reflect.Struct {
+		return c.isEqualInStruct(data)
+	}
+
 	return c.isEqualInSliceOfArray(data)
+
 }
 
 func (c *myCollection) ConvElmToInterface() (result interface{}, err error) {
