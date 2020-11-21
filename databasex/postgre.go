@@ -11,7 +11,7 @@ type postgresDb struct {
 }
 
 // CreateQueryString is method implementing interface
-func (workDb *postgresDb) createValuesMark(fieldNum int) (string, error) {
+func (workDb *postgresDb) CreateValuesMark(fieldNum int) (string, error) {
 
 	var arrPrms []string
 

@@ -1,6 +1,7 @@
 package databasex_test
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/supriadi-yusuf/mulai/databasex"
@@ -18,6 +19,11 @@ func ExampleNewMysql() {
 		log.Fatal(err)
 	}
 
-	db.Close()
+	defer db.Close()
+
+	valuesmark, _ := currDb.CreateValuesMark(5)
+	fmt.Println(valuesmark)
+	//Output:
+	// ?,?,?,?,?
 
 }

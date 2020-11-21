@@ -11,7 +11,7 @@ type mysqlDb struct {
 }
 
 // CreateQueryString is method implementing interface
-func (workDb *mysqlDb) createValuesMark(fieldNum int) (string, error) {
+func (workDb *mysqlDb) CreateValuesMark(fieldNum int) (string, error) {
 
 	var arrPrms []string
 

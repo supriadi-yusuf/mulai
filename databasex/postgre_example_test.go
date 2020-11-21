@@ -1,6 +1,7 @@
 package databasex_test
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/supriadi-yusuf/mulai/databasex"
@@ -18,6 +19,11 @@ func ExampleNewPostgre() {
 		log.Fatal(err)
 	}
 
-	db.Close()
+	defer db.Close()
+
+	valuesmark, _ := postgres.CreateValuesMark(5)
+	fmt.Println(valuesmark)
+	//Output:
+	// $1,$2,$3,$4,$5
 
 }
