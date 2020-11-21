@@ -15,10 +15,23 @@ import (
 //   This method is to add new data into database table. This has two input parameters.
 //   The first one has type of context.Context. The second one has type of IModel.
 //
+// - InsertConn
+//
+//   This method is to add new data into database table using single connection rather than pool connection.
+//   This has three input parameters. The first one has type of context.Context.
+//   The second one is single connection. The third one has type of IModel.
+//
+// - InsertTrans
+//
+//   This method is to add new data into database table using database transaction.
+//   This has three input parameters. The first one has type of context.Context.
+//   The second one is database transaction. The third one has type of IModel.
+//
 // - DeleteDb
 //
 //   This method is to delete records from database table. This method has three input parameters.
-//   The last one is criteria. If we delete table with criteria then we can use it.
+//   criteria parameter is rule about by which deletion should be conducted.
+//   If we delete record based on certain criteria then we can use it.
 //   If we do not use the criteria just put empty string into the criteria parameter.
 //
 //   for example, we run delete operation :
@@ -27,9 +40,25 @@ import (
 //
 //   name='charles' is criteria that we need to put into criteria parameter.
 //
+// - DeleteConn
+//
+//   This method is to delete records from database table using single connection rather than pool connection.
+//
+// - DeleteTrans
+//
+//   This method is to delete records from database table using database transaction.
+//
 // - UpdateDb
 //
 //   This method is to update data in database table.
+//
+// - UpdateConn
+//
+//   This method is to update data in database table using single connection rather than pool connection.
+//
+// - UpdateTrans
+//
+//   This method is to update data in database table using database transaction.
 //
 // - SelectDb
 //
@@ -41,17 +70,17 @@ import (
 type ISqlOperation interface {
 	// insert data into table
 	InsertDb(ctx context.Context, model IModel) error
-	InsertPool(ctx context.Context, conn *sql.Conn, model IModel) error
+	InsertConn(ctx context.Context, conn *sql.Conn, model IModel) error
 	InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error
 
 	// delete data from table
 	DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error)
-	DeletePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
+	DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
 	DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
 
 	// update data on table
 	UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error)
-	UpdatePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
+	UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
 	UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
 
 	// retrieve data from table
@@ -68,7 +97,7 @@ func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
 		return err
 	}
 
-	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().createValuesMark)
+	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().CreateValuesMark)
 	if err != nil {
 		return err
 	}
@@ -86,13 +115,13 @@ func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
 	return nil
 }
 
-func (s *simpleSQL) InsertPool(ctx context.Context, conn *sql.Conn, model IModel) error {
+func (s *simpleSQL) InsertConn(ctx context.Context, conn *sql.Conn, model IModel) error {
 
 	if err := inspectContext(ctx); err != nil {
 		return err
 	}
 
-	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().createValuesMark)
+	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().CreateValuesMark)
 	if err != nil {
 		return err
 	}
@@ -116,7 +145,7 @@ func (s *simpleSQL) InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) e
 		return err
 	}
 
-	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().createValuesMark)
+	cmdStr, values, err := createInsertCommand( /*ctx,*/ model, s.getDb().CreateValuesMark)
 	if err != nil {
 		return err
 	}
@@ -160,7 +189,7 @@ func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string)
 	return affectRow, nil
 }
 
-func (s *simpleSQL) DeletePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
@@ -244,7 +273,7 @@ func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string)
 	return affectRow, nil
 }
 
-func (s *simpleSQL) UpdatePool(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
