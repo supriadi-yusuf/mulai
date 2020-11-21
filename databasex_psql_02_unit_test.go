@@ -28,7 +28,7 @@ type Student struct {
 	Grade int
 }*/
 
-func TestCreateTablePostgresqlPool(t *testing.T) {
+func TestCreateTablePostgresqlConn(t *testing.T) {
 
 	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
 		psqlOther, 10, 5)
@@ -57,7 +57,7 @@ func TestCreateTablePostgresqlPool(t *testing.T) {
 
 }
 
-func TestAddOneRecordPostgresqlPool(t *testing.T) {
+func TestAddOneRecordPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : add one record to tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -97,7 +97,7 @@ func TestAddOneRecordPostgresqlPool(t *testing.T) {
 	student := Student{"C001", "junjun", 6, 1}
 	model.SetNewData(student)
 
-	if err = sqlOp.InsertPool(context.Background(), conn, model); err != nil {
+	if err = sqlOp.InsertConn(context.Background(), conn, model); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -119,7 +119,7 @@ func TestAddOneRecordPostgresqlPool(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordPostgresqlPool(t *testing.T) {
+func TestUpdateOneRecordPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : update one records from tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -178,7 +178,7 @@ func TestUpdateOneRecordPostgresqlPool(t *testing.T) {
 	}{CName, CAge, CGrade}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, "id='C001'"); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, "id='C001'"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -196,7 +196,7 @@ func TestUpdateOneRecordPostgresqlPool(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordPostgresqlPool(t *testing.T) {
+func TestDeleteOneRecordPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : delete one records from tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -243,7 +243,7 @@ func TestDeleteOneRecordPostgresqlPool(t *testing.T) {
 	t.Logf("delete one records from table")
 
 	model.SetNewData(nil)
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, "id='C001'"); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, "id='C001'"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -262,7 +262,7 @@ func TestDeleteOneRecordPostgresqlPool(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsPostgresqlPool(t *testing.T) {
+func TestUpdateSeveralRecordsPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : update several records from tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -333,7 +333,7 @@ func TestUpdateSeveralRecordsPostgresqlPool(t *testing.T) {
 	}{CName, CAge}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, "grade=5"); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, "grade=5"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -360,7 +360,7 @@ func TestUpdateSeveralRecordsPostgresqlPool(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsPostgresqlPool(t *testing.T) {
+func TestUpdateAllRecordsPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : update all records from tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -431,7 +431,7 @@ func TestUpdateAllRecordsPostgresqlPool(t *testing.T) {
 	}{CName, CAge}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, ""); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -458,7 +458,7 @@ func TestUpdateAllRecordsPostgresqlPool(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsPostgresqlPool(t *testing.T) {
+func TestDeleteAllRecordsPostgresqlConn(t *testing.T) {
 
 	t.Logf("testing : delete all records from tabel tb_student in db_belajar_golang database using postgresq")
 
@@ -519,7 +519,7 @@ func TestDeleteAllRecordsPostgresqlPool(t *testing.T) {
 	t.Logf("delete all records from table")
 
 	model.SetNewData(nil)
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, ""); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 

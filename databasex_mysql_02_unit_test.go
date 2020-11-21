@@ -28,7 +28,7 @@ const (
 	Grade int
 }*/
 
-func TestCreateTableMySqlPool(t *testing.T) {
+func TestCreateTableMySqlConn(t *testing.T) {
 
 	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
 		10, 5)
@@ -57,7 +57,7 @@ func TestCreateTableMySqlPool(t *testing.T) {
 
 }
 
-func TestAddOneRecordMySqlPool(t *testing.T) {
+func TestAddOneRecordMySqlConn(t *testing.T) {
 
 	t.Logf("testing : add one record to tabel tb_student in db_belajar_golang database using mysql")
 
@@ -97,7 +97,7 @@ func TestAddOneRecordMySqlPool(t *testing.T) {
 	student := Student{"C001", "junjun", 6, 1}
 	model.SetNewData(student)
 
-	if err = sqlOp.InsertPool(context.Background(), conn, model); err != nil {
+	if err = sqlOp.InsertConn(context.Background(), conn, model); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -119,7 +119,7 @@ func TestAddOneRecordMySqlPool(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordMySqlPool(t *testing.T) {
+func TestUpdateOneRecordMySqlConn(t *testing.T) {
 
 	t.Logf("testing : update one records from tabel tb_student in db_belajar_golang database using mysql")
 
@@ -178,7 +178,7 @@ func TestUpdateOneRecordMySqlPool(t *testing.T) {
 	}{CName, CAge, CGrade}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, "id='C001'"); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, "id='C001'"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -196,7 +196,7 @@ func TestUpdateOneRecordMySqlPool(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordMySqlPool(t *testing.T) {
+func TestDeleteOneRecordMySqlConn(t *testing.T) {
 
 	t.Logf("testing : delete one records from tabel tb_student in db_belajar_golang database using mysql")
 
@@ -243,7 +243,7 @@ func TestDeleteOneRecordMySqlPool(t *testing.T) {
 	t.Logf("delete one records from table")
 
 	model.SetNewData(nil)
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, "id='C001'"); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, "id='C001'"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -262,7 +262,7 @@ func TestDeleteOneRecordMySqlPool(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsMySqlPool(t *testing.T) {
+func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
 
 	t.Logf("testing : update several records from tabel tb_student in db_belajar_golang database using mysql")
 
@@ -333,7 +333,7 @@ func TestUpdateSeveralRecordsMySqlPool(t *testing.T) {
 	}{CName, CAge}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, "grade=5"); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, "grade=5"); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -360,7 +360,7 @@ func TestUpdateSeveralRecordsMySqlPool(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsMySqlPool(t *testing.T) {
+func TestUpdateAllRecordsMySqlConn(t *testing.T) {
 
 	t.Logf("testing : update all records from tabel tb_student in db_belajar_golang database using mysql")
 
@@ -431,7 +431,7 @@ func TestUpdateAllRecordsMySqlPool(t *testing.T) {
 	}{CName, CAge}
 
 	model.SetNewData(keypair)
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, ""); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
@@ -458,7 +458,7 @@ func TestUpdateAllRecordsMySqlPool(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsMySqlPool(t *testing.T) {
+func TestDeleteAllRecordsMySqlConn(t *testing.T) {
 
 	t.Logf("testing : delete all records from tabel tb_student in db_belajar_golang database using mysql")
 
@@ -519,7 +519,7 @@ func TestDeleteAllRecordsMySqlPool(t *testing.T) {
 	t.Logf("delete all records from table")
 
 	model.SetNewData(nil)
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, ""); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
 
