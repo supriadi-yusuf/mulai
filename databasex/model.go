@@ -48,7 +48,7 @@ func (t *simpleModel) SetNewData(data interface{}) {
 // This function receives two input parameter :
 //
 // - name
-//   name of table to associted with this function.
+//   name of table to associted with model.
 //
 // - data
 //   data is data we want to use in CRUD operation.
