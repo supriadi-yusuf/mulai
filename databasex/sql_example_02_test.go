@@ -7,7 +7,7 @@ import (
 	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
-func Example_insert02() {
+func ExampleNewSimpleSQL_insertConn() {
 
 	type Student struct {
 		ID    string
@@ -46,13 +46,13 @@ func Example_insert02() {
 	model := databasex.NewSimpleModel("tb_student", student)
 
 	// insert data into table
-	if err = sqlOp.InsertPool(context.Background(), conn, model); err != nil {
+	if err = sqlOp.InsertConn(context.Background(), conn, model); err != nil {
 		log.Fatalln(err.Error())
 	}
 
 }
 
-func Example_delete02() {
+func ExampleNewSimpleSQL_deleteConn() {
 
 	// connect to postgresql with database db_belajar_golang
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
@@ -84,18 +84,18 @@ func Example_delete02() {
 	model := databasex.NewSimpleModel("tb_student", nil)
 
 	// delete record for student whose name is agus
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, "name='agus'"); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, "name='agus'"); err != nil {
 		log.Fatalln(err.Error())
 	}
 
 	// delete all records
-	if _, err = sqlOp.DeletePool(context.Background(), conn, model, ""); err != nil {
+	if _, err = sqlOp.DeleteConn(context.Background(), conn, model, ""); err != nil {
 		log.Fatalln(err.Error())
 	}
 
 }
 
-func Example_update02() {
+func ExampleNewSimpleSQL_updateConn() {
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
 		"?sslmode=disable", 0, 0)
@@ -135,7 +135,7 @@ func Example_update02() {
 	// create model
 	model := databasex.NewSimpleModel("tb_student", keypair)
 
-	if _, err = sqlOp.UpdatePool(context.Background(), conn, model, "id='C001'"); err != nil {
+	if _, err = sqlOp.UpdateConn(context.Background(), conn, model, "id='C001'"); err != nil {
 		log.Fatalln(err.Error())
 	}
 

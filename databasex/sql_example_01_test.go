@@ -8,7 +8,7 @@ import (
 	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
-func Example_insert01() {
+func ExampleNewSimpleSQL_insertDb() {
 
 	type Student struct {
 		ID    string
@@ -45,7 +45,7 @@ func Example_insert01() {
 
 }
 
-func Example_delete01() {
+func ExampleNewSimpleSQL_deleteDb() {
 
 	// connect to postgresql with database db_belajar_golang
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
@@ -80,7 +80,7 @@ func Example_delete01() {
 
 }
 
-func Example_update01() {
+func ExampleNewSimpleSQL_updateDb() {
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
 		"?sslmode=disable", 0, 0)
@@ -118,7 +118,7 @@ func Example_update01() {
 
 }
 
-func Example_select() {
+func ExampleNewSimpleSQL_selectDb() {
 
 	type Student struct {
 		ID    string

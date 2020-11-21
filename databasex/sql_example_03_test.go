@@ -7,7 +7,7 @@ import (
 	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
-func Example_insert03() {
+func ExampleNewSimpleSQL_insertTrans() {
 
 	type Student struct {
 		ID    string
@@ -51,7 +51,7 @@ func Example_insert03() {
 	tx.Commit() // or tx.Rollback()
 }
 
-func Example_delete03() {
+func ExampleNewSimpleSQL_deleteTrans() {
 
 	// connect to postgresql with database db_belajar_golang
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
@@ -94,7 +94,7 @@ func Example_delete03() {
 
 }
 
-func Example_update03() {
+func ExampleNewSimpleSQL_updateTrans() {
 
 	postgres, err := databasex.NewPostgre("scott", "tiger", "localhost", "5432", "db_belajar_golang",
 		"?sslmode=disable", 0, 0)
