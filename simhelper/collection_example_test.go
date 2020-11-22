@@ -17,7 +17,7 @@ func ExampleNewCollection_removeIndex() {
 	fmt.Println(res)
 
 	//Output:
-	//[]int{ 2, 3, 4}
+	//[2 3 4]
 }
 
 func ExampleNewCollection_filterValue() {
@@ -33,7 +33,7 @@ func ExampleNewCollection_filterValue() {
 	fmt.Println(res)
 
 	//Output:
-	//[]int{ 1, 3, 5}
+	//[1 3 5]
 }
 
 func ExampleNewCollection_mappingValue() {
@@ -48,7 +48,7 @@ func ExampleNewCollection_mappingValue() {
 	fmt.Println(res)
 
 	//Output:
-	//[]bool{ true, false, true, false, true, false}
+	//[true false true false true false]
 }
 
 func ExampleNewCollection_meanValue() {
@@ -87,6 +87,6 @@ func ExampleNewCollection_convElmToInterface() {
 	fmt.Println(res)
 
 	//Output:
-	//[]interface{}{ 1, 2, 3, 4, 5, 6}
+	//[1 2 3 4 5 6]
 
 }
