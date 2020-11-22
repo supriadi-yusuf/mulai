@@ -1,4 +1,4 @@
-package main
+package databasex
 
 import (
 	"context"
@@ -6,18 +6,17 @@ import (
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
 /*
 const (
-	mysqlUsername       = "root"
-	mysqlPassword       = ""
-	mysqlHost           = "localhost"
-	mysqlPort           = "3306"
-	mysqlDb             = "db_belajar_golang"
-	mysqlMaxConnections = 0
-	mysqlMaxIdle        = 0
+	mysqlUsernameTest       = "root"
+	mysqlPasswordTest       = ""
+	mysqlHostTest           = "localhost"
+	mysqlPortTest           = "3306"
+	mysqlDbTest             = "db_belajar_golang"
+	mysqlMaxConnectionsTest = 0
+	mysqlMaxIdleTest        = 0
 )
 */
 // Student is type
@@ -30,7 +29,7 @@ const (
 
 func TestCreateTableMySqlConn(t *testing.T) {
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -59,11 +58,19 @@ func TestCreateTableMySqlConn(t *testing.T) {
 
 func TestAddOneRecordMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : add one record to tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -83,11 +90,11 @@ func TestAddOneRecordMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -121,11 +128,19 @@ func TestAddOneRecordMySqlConn(t *testing.T) {
 
 func TestUpdateOneRecordMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update one records from tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -145,11 +160,11 @@ func TestUpdateOneRecordMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -198,11 +213,19 @@ func TestUpdateOneRecordMySqlConn(t *testing.T) {
 
 func TestDeleteOneRecordMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : delete one records from tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -222,11 +245,11 @@ func TestDeleteOneRecordMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -264,11 +287,19 @@ func TestDeleteOneRecordMySqlConn(t *testing.T) {
 
 func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update several records from tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -288,11 +319,11 @@ func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -362,11 +393,19 @@ func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
 
 func TestUpdateAllRecordsMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update all records from tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -386,11 +425,11 @@ func TestUpdateAllRecordsMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -460,11 +499,19 @@ func TestUpdateAllRecordsMySqlConn(t *testing.T) {
 
 func TestDeleteAllRecordsMySqlConn(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : delete all records from tabel tb_student in db_belajar_golang database using mysql")
 
 	t.Logf("create connection to database server")
 
-	currDb, err := databasex.NewMysql(mysqlUsername, mysqlPassword, mysqlHost, mysqlPort, mysqlDb,
+	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -484,11 +531,11 @@ func TestDeleteAllRecordsMySqlConn(t *testing.T) {
 
 	defer conn.Close()
 
-	sqlOp := databasex.NewSimpleSQL(currDb)
+	sqlOp := NewSimpleSQL(currDb)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}

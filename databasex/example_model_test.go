@@ -30,4 +30,9 @@ func ExampleNewSimpleModel() {
 	newModel.SetNewData(student)
 
 	fmt.Println(newModel.GetData()) // output ==> { Abraham, 11, 6}
+
+	//Output:
+	//tb_student
+	//{Richard 10 5}
+	//{Abraham 11 6}
 }

@@ -1,4 +1,4 @@
-package main
+package databasex
 
 import (
 	"context"
@@ -6,32 +6,31 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-	"github.com/supriadi-yusuf/mulai/databasex"
 )
 
 const (
-	psqlUsername       = "scott"
-	psqlPassword       = "tiger"
-	psqlHost           = "localhost"
-	psqlPort           = "5432"
-	psqlDb             = "db_belajar_golang"
-	psqlOther          = "?sslmode=disable"
-	psqlMaxConnections = 0
-	psqlMaxIdle        = 0
+	psqlUsernameTest       = "scott"
+	psqlPasswordTest       = "tiger"
+	psqlHostTest           = "localhost"
+	psqlPortTest           = "5432"
+	psqlDbTest             = "db_belajar_golang"
+	psqlOtherTest          = "?sslmode=disable"
+	psqlMaxConnectionsTest = 0
+	psqlMaxIdleTest        = 0
 )
-
-// Student is type
-type Student struct {
-	ID    string
-	Name  string
-	Age   int
-	Grade int
-}
 
 func TestCreateTablePostgresql(t *testing.T) {
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -59,12 +58,20 @@ func TestCreateTablePostgresql(t *testing.T) {
 
 func TestAddOneRecordPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : add one record to tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -76,11 +83,11 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -114,12 +121,20 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 
 func TestUpdateOneRecordPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update one records from tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -131,11 +146,11 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -184,12 +199,20 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 func TestDeleteOneRecordPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : delete one records from tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -201,11 +224,11 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -243,12 +266,20 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 
 func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update several records from tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -260,11 +291,11 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -334,12 +365,20 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
 func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : update all records from tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -351,11 +390,11 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -425,12 +464,20 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
 func TestDeleteAllRecordsPostgresql(t *testing.T) {
 
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
 	t.Logf("testing : delete all records from tabel tb_student in db_belajar_golang database using postgresq")
 
 	t.Logf("create connection to database server")
 
-	postgres, err := databasex.NewPostgre(psqlUsername, psqlPassword, psqlHost, psqlPort, psqlDb,
-		psqlOther, psqlMaxConnections, psqlMaxIdle)
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -442,11 +489,11 @@ func TestDeleteAllRecordsPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := databasex.NewSimpleSQL(postgres)
+	sqlOp := NewSimpleSQL(postgres)
 
 	t.Logf("delete all data first")
 
-	model := databasex.NewSimpleModel("tb_student", nil)
+	model := NewSimpleModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
