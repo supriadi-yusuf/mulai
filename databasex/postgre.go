@@ -45,7 +45,6 @@ func (workDb *postgresDb) createConnection(username, password, host, port, dbnam
 }
 
 // NewPostgre is a function to connect with postgresql database.
-// This function returns 2 objects : the first one has type of IDatabase (interface), the second one has type of error.
 //
 // This function has several input parameters :
 //
@@ -61,11 +60,11 @@ func (workDb *postgresDb) createConnection(username, password, host, port, dbnam
 //
 // - other is additional parameter if we need it. for example : sslmode=disable
 func NewPostgre(username, password, host, port, dbname, other string,
-	maxConnections, maxIdleConnection int) (IDatabase, error) {
+	maxConnections, maxIdleConnection int) (db IDatabase, err error) {
 
 	var workDb postgresDb
 
-	_, err := workDb.createConnection(username, password, host, port, dbname, other,
+	_, err = workDb.createConnection(username, password, host, port, dbname, other,
 		maxConnections, maxIdleConnection)
 	if err != nil {
 		return nil, err
