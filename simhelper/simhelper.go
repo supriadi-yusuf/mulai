@@ -17,9 +17,6 @@ package simhelper
 //
 //   Converts certain value into float64
 //
-//
-// IValue is declarated as follow :
-//
 type IValue interface {
 	IsIn(collection interface{}) (result bool, err error)
 	IsNumber() (result bool)
@@ -51,7 +48,6 @@ type IValue interface {
 // - ConvElmToInterface() (result interface{}, err error)
 //   Converts each element in slice / map to interface{}
 //
-// ICollection is declarated as follow :
 type ICollection interface {
 	RemoveIndex(index interface{}) (result interface{}, err error)
 

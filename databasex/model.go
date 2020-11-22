@@ -10,7 +10,6 @@ package databasex
 //
 //   This method is to get data stored in this model.
 //
-// IModel is defined as :
 type IModel interface {
 	GetTableName() (tableName string)
 	GetData() (data interface{})

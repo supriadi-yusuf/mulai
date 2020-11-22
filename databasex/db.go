@@ -22,8 +22,6 @@ import (
 // - GetDbConnection() (dbConn *sql.DB, err error)
 //   Get dbms's connection.
 //
-// IDatabase is declared as follow :
-//
 type IDatabase interface {
 	CreateValuesMark(fieldNum int) (valuesMark string, err error)
 	GetDbConnection() (dbConn *sql.DB, err error)

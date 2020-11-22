@@ -66,7 +66,6 @@ import (
 //   Retrieved data will be stored into result parameter.
 //   result parameter must be address of struct slice.
 //
-// ISqlOperation is defined as :
 type ISqlOperation interface {
 	// insert data into table
 	InsertDb(ctx context.Context, model IModel) error
