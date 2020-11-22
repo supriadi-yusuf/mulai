@@ -10,24 +10,24 @@ import (
 
 // ISqlOperation is interface related to sql operation (CRUD). This interface has several methods :
 //
-// - InsertDb
+// - InsertDb(ctx context.Context, model IModel) error
 //
 //   This method is to add new data into database table. This has two input parameters.
 //   The first one has type of context.Context. The second one has type of IModel.
 //
-// - InsertConn
+// - InsertConn(ctx context.Context, conn *sql.Conn, model IModel) error
 //
 //   This method is to add new data into database table using single connection rather than pool connection.
 //   This has three input parameters. The first one has type of context.Context.
 //   The second one is single connection. The third one has type of IModel.
 //
-// - InsertTrans
+// - InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error
 //
 //   This method is to add new data into database table using database transaction.
 //   This has three input parameters. The first one has type of context.Context.
 //   The second one is database transaction. The third one has type of IModel.
 //
-// - DeleteDb
+// - DeleteDb(ctx context.Context, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to delete records from database table. This method has three input parameters.
 //   criteria parameter is rule about by which deletion should be conducted.
@@ -40,31 +40,31 @@ import (
 //
 //   name='charles' is criteria that we need to put into criteria parameter.
 //
-// - DeleteConn
+// - DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to delete records from database table using single connection rather than pool connection.
 //
-// - DeleteTrans
+// - DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to delete records from database table using database transaction.
 //
-// - UpdateDb
+// - UpdateDb(ctx context.Context, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to update data in database table.
 //
-// - UpdateConn
+// - UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to update data in database table using single connection rather than pool connection.
 //
-// - UpdateTrans
+// - UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (affectedRows int64, err error)
 //
 //   This method is to update data in database table using database transaction.
 //
-// - SelectDb
+// - SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error
 //
 //   This method is to retrieve data from database table.
 //   Retrieved data will be stored into result parameter.
-//   When this method is called, value that we should store into result parameter must be address of struct slice.
+//   result parameter must be address of struct slice.
 //
 // ISqlOperation is defined as :
 type ISqlOperation interface {
@@ -74,14 +74,14 @@ type ISqlOperation interface {
 	InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error
 
 	// delete data from table
-	DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error)
-	DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
-	DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
+	DeleteDb(ctx context.Context, model IModel, criteria string) (affectedRows int64, err error)
+	DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (affectedRows int64, err error)
+	DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (affectedRows int64, err error)
 
 	// update data on table
-	UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error)
-	UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error)
-	UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error)
+	UpdateDb(ctx context.Context, model IModel, criteria string) (affectedRows int64, err error)
+	UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (affectedRows int64, err error)
+	UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (affectedRows int64, err error)
 
 	// retrieve data from table
 	SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error
