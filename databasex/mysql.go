@@ -46,7 +46,6 @@ func (workDb *mysqlDb) createConnection(username, password, host, port, dbname s
 }
 
 // NewMysql is a function to connect with mysql database.
-// This function returns 2 objects : the first one has type of IDatabase (interface), the second one has type of error.
 //
 // This function has several input parameters :
 //
@@ -61,11 +60,11 @@ func (workDb *mysqlDb) createConnection(username, password, host, port, dbname s
 // - dbname is name of database
 //
 func NewMysql(username, password, host, port, dbname string,
-	maxConnections, maxIdleConnection int) (IDatabase, error) {
+	maxConnections, maxIdleConnection int) (db IDatabase, err error) {
 
 	var workDb mysqlDb
 
-	_, err := workDb.createConnection(username, password, host, port, dbname,
+	_, err = workDb.createConnection(username, password, host, port, dbname,
 		maxConnections, maxIdleConnection)
 	if err != nil {
 		return nil, err
