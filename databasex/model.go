@@ -53,7 +53,7 @@ func (t *simpleModel) SetNewData(data interface{}) {
 // - data
 //   data is data we want to use in CRUD operation.
 //   Value stored into data must has struct type.
-func NewSimpleModel(name string, data interface{}) IWriteableModel {
+func NewSimpleModel(name string, data interface{}) (model IWriteableModel) {
 	var s simpleModel
 
 	s.name = name
