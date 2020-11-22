@@ -9,8 +9,8 @@ import (
 
 // IDatabase is interface related to dbms. This interface has several methods :
 //
-// - CreateValuesMark
-//   CreateValuesMark is a method to create values mark in sql statement.
+// - CreateValuesMark(fieldNum int) (valuesMark string, err error)
+//   Create values mark in sql statement.
 //   If we use sql to insert data into postgresql. we create command :
 //   "insert into tb_xxx(field1, field2, field3) values($1,$2,$3)".
 //   $1,$2,$3 are values mark on postgresql.
@@ -19,12 +19,14 @@ import (
 //   "insert into tb_xxx(field1, field2, field3) values(?,?,?)"
 //   ?,?,? are values mark on mysql.
 //
-// - GetDbConnection
-//   This method is to get dbms's connection.
+// - GetDbConnection() (dbConn *sql.DB, err error)
+//   Get dbms's connection.
+//
+// IDatabase is declared as follow :
 //
 type IDatabase interface {
-	CreateValuesMark(fieldNum int) (string, error)
-	GetDbConnection() (*sql.DB, error)
+	CreateValuesMark(fieldNum int) (valuesMark string, err error)
+	GetDbConnection() (dbConn *sql.DB, err error)
 }
 
 type realDb struct {
@@ -32,7 +34,7 @@ type realDb struct {
 }
 
 // GetConnection is method
-func (workDb *realDb) GetDbConnection() (*sql.DB, error) {
+func (workDb *realDb) GetDbConnection() (dbConn *sql.DB, err error) {
 
 	if workDb.db == nil {
 		return nil, errors.New("Connection does not exist")
