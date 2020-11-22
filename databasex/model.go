@@ -2,18 +2,18 @@ package databasex
 
 //IModel is interface related to table. This interface has methods :
 //
-// - GetTableName
+// - GetTableName() (tableName string)
 //
 //   This method is to get the table name associated to this model
 //
-// - GetData
+// - GetData() (data interface{})
 //
 //   This method is to get data stored in this model.
 //
 // IModel is defined as :
 type IModel interface {
-	GetTableName() string
-	GetData() interface{}
+	GetTableName() (tableName string)
+	GetData() (data interface{})
 }
 
 // IWriteableModel is extension for IModel. It has new method SetNewData.
