@@ -33,7 +33,7 @@ func Test_value_01(t *testing.T) {
 		t.Errorf("value is not in slice\n")
 	}
 
-	res, err = NewValue(int(10)).IsIn([]float32{1, 2, 3, 4, 5, 6})
+	_, err = NewValue(int(10)).IsIn([]float32{1, 2, 3, 4, 5, 6})
 	if err == nil {
 		t.Errorf("type is different\n")
 	}
@@ -56,7 +56,7 @@ func Test_value_01(t *testing.T) {
 		t.Errorf("value is not in map\n")
 	}
 
-	res, err = NewValue(10).IsIn(map[int]string{1: "animal", 2: "house", 3: "giraffe", 4: "book"})
+	_, err = NewValue(10).IsIn(map[int]string{1: "animal", 2: "house", 3: "giraffe", 4: "book"})
 	if err == nil {
 		t.Errorf("type is different\n")
 	}

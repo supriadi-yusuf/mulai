@@ -11,7 +11,7 @@ func Test_value_03(t *testing.T) {
 		t.Fatalf("%s\n", err.Error())
 	}
 
-	if res != 10 {
+	if res != float64(10) {
 		t.Errorf("wrong result\n")
 	}
 
@@ -20,7 +20,7 @@ func Test_value_03(t *testing.T) {
 		t.Fatalf("%s\n", err.Error())
 	}
 
-	if res != -10 {
+	if res != float64(-10) {
 		t.Errorf("wrong result\n")
 	}
 
@@ -29,7 +29,7 @@ func Test_value_03(t *testing.T) {
 		t.Fatalf("%s\n", err.Error())
 	}
 
-	if res != 1.8 {
+	if res != float64(1.8) {
 		t.Errorf("wrong result\n")
 	}
 
