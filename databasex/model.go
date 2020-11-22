@@ -22,7 +22,7 @@ type IModel interface {
 // This method has one input parameter. Value stored into this parameter must has struct type.
 type IWriteableModel interface {
 	IModel
-	SetNewData(interface{})
+	SetNewData(data interface{})
 }
 
 type simpleModel struct {
