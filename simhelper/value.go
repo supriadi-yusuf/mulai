@@ -59,7 +59,8 @@ func (v *myValue) ToFloat() (result float64, err error) {
 
 }
 
-//NewValue is function to create object whose type is IValue
+//NewValue is function to create object whose type is IValue.
+//
 //data parameter must be not slice, array nor map.
 func NewValue(data interface{}) IValue {
 	var mValue myValue
