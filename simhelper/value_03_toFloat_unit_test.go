@@ -1,14 +1,12 @@
-package main
+package simhelper
 
 import (
 	"testing"
-
-	"github.com/supriadi-yusuf/mulai/simhelper"
 )
 
 func Test_value_03(t *testing.T) {
 
-	res, err := simhelper.NewValue(int(10)).ToFloat()
+	res, err := NewValue(int(10)).ToFloat()
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -17,7 +15,7 @@ func Test_value_03(t *testing.T) {
 		t.Errorf("wrong result\n")
 	}
 
-	res, err = simhelper.NewValue(int(-10)).ToFloat()
+	res, err = NewValue(int(-10)).ToFloat()
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -26,7 +24,7 @@ func Test_value_03(t *testing.T) {
 		t.Errorf("wrong result\n")
 	}
 
-	res, err = simhelper.NewValue(1.8).ToFloat()
+	res, err = NewValue(1.8).ToFloat()
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
@@ -35,7 +33,7 @@ func Test_value_03(t *testing.T) {
 		t.Errorf("wrong result\n")
 	}
 
-	_, err = simhelper.NewValue("test").ToFloat()
+	_, err = NewValue("test").ToFloat()
 	if err == nil {
 		t.Errorf("it should be error\n")
 	}
