@@ -119,6 +119,71 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 
 }
 
+func TestAddOneRecordWFPostgresql(t *testing.T) {
+
+	// Student is type
+	type Student struct {
+		ID    string
+		Name  string
+		Age   int
+		Grade int
+	}
+
+	t.Logf("testing : add one record to tabel tb_student in db_belajar_golang database using postgresq")
+
+	t.Logf("create connection to database server")
+
+	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
+		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
+	if err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	db, err := postgres.GetDbConnection()
+	if err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	defer db.Close()
+
+	sqlOp := NewSimpleSQL(postgres)
+
+	t.Logf("delete all data first")
+
+	factory := CreateModelFactory()
+
+	model := factory.NewModel("tb_student", nil)
+	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	t.Logf("insert one record into table")
+
+	student := Student{"C001", "junjun", 6, 1}
+	model.SetNewData(student)
+
+	if err = sqlOp.InsertDb(context.Background(), model); err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	t.Logf("read table")
+
+	data := make([]Student, 0)
+	model.SetNewData(Student{})
+	if err = sqlOp.SelectDb(context.Background(), model, fmt.Sprintf("ID='%s'", student.ID), &data); err != nil {
+		t.Fatalf("%s\n", err.Error())
+	}
+
+	if len(data) < 1 {
+		t.Errorf("adding one data fail")
+	}
+
+	if data[0].ID != student.ID || data[0].Name != student.Name || data[0].Age != student.Age || data[0].Grade != student.Grade {
+		t.Errorf("data is different")
+	}
+
+}
+
 func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 	// Student is type
