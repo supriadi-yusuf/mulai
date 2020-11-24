@@ -137,12 +137,13 @@ func TestAddOneRecordWFMySql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := NewSimpleSQL(currDb)
+	sqlFactory := CreateSQLFactory()
+	sqlOp := sqlFactory.NewSQLOperation(currDb)
 
 	t.Logf("delete all data first")
 
-	factory := CreateModelFactory()
-	model := factory.NewModel("tb_student", nil)
+	mdlfactory := CreateModelFactory()
+	model := mdlfactory.NewModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}

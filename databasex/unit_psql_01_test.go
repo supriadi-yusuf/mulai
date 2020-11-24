@@ -146,13 +146,13 @@ func TestAddOneRecordWFPostgresql(t *testing.T) {
 
 	defer db.Close()
 
-	sqlOp := NewSimpleSQL(postgres)
+	sqlFactory := CreateSQLFactory()
+	sqlOp := sqlFactory.NewSQLOperation(postgres)
 
 	t.Logf("delete all data first")
 
-	factory := CreateModelFactory()
-
-	model := factory.NewModel("tb_student", nil)
+	mdlFactory := CreateModelFactory()
+	model := mdlFactory.NewModel("tb_student", nil)
 	if _, err = sqlOp.DeleteDb(context.Background(), model, ""); err != nil {
 		t.Fatalf("%s\n", err.Error())
 	}
