@@ -76,7 +76,7 @@ func Test_Equal_07(t *testing.T) {
 	_, err := NewCollection(map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).IsEqual(
 		map[string]float32{"satu": 1, "dua": 2, "tiga": 3, "empat": 4})
 	if err == nil {
-		t.Errorf("%s\n", err.Error())
+		t.Errorf("type are different")
 	}
 }
 
