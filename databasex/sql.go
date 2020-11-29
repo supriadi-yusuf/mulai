@@ -6,6 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+
+	"github.com/supriadi-yusuf/mulai/simhelper"
 )
 
 // ISqlOperation is interface related to sql operation (CRUD). This interface has several methods :
@@ -90,9 +92,11 @@ type simpleSQL struct {
 	db IDatabase
 }
 
-func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
+func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) (err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return err
 	}
 
@@ -114,9 +118,11 @@ func (s *simpleSQL) InsertDb(ctx context.Context, model IModel) error {
 	return nil
 }
 
-func (s *simpleSQL) InsertConn(ctx context.Context, conn *sql.Conn, model IModel) error {
+func (s *simpleSQL) InsertConn(ctx context.Context, conn *sql.Conn, model IModel) (err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return err
 	}
 
@@ -138,9 +144,11 @@ func (s *simpleSQL) InsertConn(ctx context.Context, conn *sql.Conn, model IModel
 	return nil
 }
 
-func (s *simpleSQL) InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) error {
+func (s *simpleSQL) InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) (err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return err
 	}
 
@@ -162,9 +170,11 @@ func (s *simpleSQL) InsertTrans(ctx context.Context, tx *sql.Tx, model IModel) e
 	return nil
 }
 
-func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string) (affectRow int64, err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return 0, err
 	}
 
@@ -183,12 +193,15 @@ func (s *simpleSQL) DeleteDb(ctx context.Context, model IModel, criteria string)
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) DeleteConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) DeleteConn(ctx context.Context, conn *sql.Conn,
+	model IModel, criteria string) (affectRow int64, err error) {
+
+	defer simhelper.GetErrorOnPanic(&err)
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
@@ -209,12 +222,15 @@ func (s *simpleSQL) DeleteConn(ctx context.Context, conn *sql.Conn, model IModel
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel,
+	criteria string) (affectRow int64, err error) {
+
+	defer simhelper.GetErrorOnPanic(&err)
 
 	if err := inspectContext(ctx); err != nil {
 		return 0, err
@@ -235,14 +251,16 @@ func (s *simpleSQL) DeleteTrans(ctx context.Context, tx *sql.Tx, model IModel, c
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string) (affectRow int64, err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return 0, err
 	}
 
@@ -267,14 +285,17 @@ func (s *simpleSQL) UpdateDb(ctx context.Context, model IModel, criteria string)
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) UpdateConn(ctx context.Context, conn *sql.Conn, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) UpdateConn(ctx context.Context, conn *sql.Conn, model IModel,
+	criteria string) (affectRow int64, err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return 0, err
 	}
 
@@ -299,14 +320,16 @@ func (s *simpleSQL) UpdateConn(ctx context.Context, conn *sql.Conn, model IModel
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (int64, error) {
+func (s *simpleSQL) UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, criteria string) (affectRow int64, err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return 0, err
 	}
 
@@ -331,14 +354,16 @@ func (s *simpleSQL) UpdateTrans(ctx context.Context, tx *sql.Tx, model IModel, c
 		return 0, err
 	}
 
-	affectRow, _ := rst.RowsAffected()
+	affectRow, _ = rst.RowsAffected()
 
 	return affectRow, nil
 }
 
-func (s *simpleSQL) SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) error {
+func (s *simpleSQL) SelectDb(ctx context.Context, model IModel, criteria string, result interface{}) (err error) {
 
-	if err := inspectContext(ctx); err != nil {
+	defer simhelper.GetErrorOnPanic(&err)
+
+	if err = inspectContext(ctx); err != nil {
 		return err
 	}
 
