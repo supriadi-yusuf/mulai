@@ -45,6 +45,17 @@ type IValue interface {
 //   Check if two map/slice/struct are equal or not.
 //   Parameter data must be map/slice/struct.
 //
+//   []byte{1,2,3} and []byte{1,2,3} are considered equal in this method but
+//
+//   []byte{1,2,3} and []byte{1,3,2} are not considered equal in this method
+//
+// - IsElemEqual(data interface{}) (result bool, err error)
+//   Check if two map/slice/struct are equal or not.
+//   Parameter data must be map/slice/struct.
+//
+//   []byte{1,2,3} and []byte{1,3,2} are considered equal in this method because they have same element value
+//   event though their element sequence are different.
+//
 // - ConvElmToInterface() (result interface{}, err error)
 //   Converts each element in slice / map to interface{}
 //
@@ -58,6 +69,8 @@ type ICollection interface {
 	MeanValue() (result float64, err error)
 
 	IsEqual(data interface{}) (result bool, err error)
+
+	IsElemEqual(data interface{}) (result bool, err error)
 
 	ConvElmToInterface() (result interface{}, err error)
 }

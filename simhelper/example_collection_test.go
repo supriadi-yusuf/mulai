@@ -77,6 +77,27 @@ func ExampleNewCollection_isEqual() {
 	//true
 }
 
+func ExampleNewCollection_isElemEqual() {
+
+	res, err := simhelper.NewCollection([]int{1, 2, 3, 4}).IsElemEqual([]int{1, 2, 3, 4})
+	if err != nil {
+		log.Fatalf("%s\n", err.Error())
+	}
+
+	fmt.Println(res)
+
+	res, err = simhelper.NewCollection([]int{1, 2, 3, 4}).IsElemEqual([]int{1, 2, 4, 3})
+	if err != nil {
+		log.Fatalf("%s\n", err.Error())
+	}
+
+	fmt.Println(res)
+
+	//Output:
+	//true
+	//true
+}
+
 func ExampleNewCollection_convElmToInterface() {
 
 	res, err := simhelper.NewCollection([]int{1, 2, 3, 4, 5, 6}).ConvElmToInterface()

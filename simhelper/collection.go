@@ -161,6 +161,46 @@ func (c *myCollection) IsEqual(data interface{}) (result bool, err error) {
 
 }
 
+func (c *myCollection) IsElemEqual(data interface{}) (result bool, err error) {
+
+	defer GetErrorOnPanic(&err)
+
+	//check type of collection's data
+	collectionType := reflect.TypeOf(c.data)
+	if collectionType.Kind() != reflect.Array && collectionType.Kind() != reflect.Slice &&
+		collectionType.Kind() != reflect.Map && collectionType.Kind() != reflect.Struct {
+		panic("collection must be array, slice, struct or map")
+	}
+
+	//check type of input parameter
+	paramType := reflect.TypeOf(data)
+	/*if paramType.Kind() != reflect.Array && paramType.Kind() != reflect.Slice &&
+		paramType.Kind() != reflect.Map && paramType.Kind() != reflect.Struct {
+		panic("input param must be array, slice, struct or map")
+	}*/
+
+	if paramType != collectionType {
+		panic("types are different")
+	}
+
+	if collectionType.Kind() == reflect.Struct {
+		return c.isElemEqualInStruct(data)
+	}
+
+	collectionValue := reflect.ValueOf(c.data)
+	paramValue := reflect.ValueOf(data)
+	if collectionValue.Len() != paramValue.Len() {
+		return false, nil
+	}
+
+	if collectionType.Kind() == reflect.Map {
+		return c.isElemEqualInMap(data)
+	}
+
+	return c.isElemEqualInSliceOfArray(data)
+
+}
+
 func (c *myCollection) ConvElmToInterface() (result interface{}, err error) {
 
 	defer GetErrorOnPanic(&err)
