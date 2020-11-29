@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -27,7 +28,9 @@ const (
 	Grade int
 }*/
 
-func TestCreateTableMySqlConn(t *testing.T) {
+func Test_MySql_CreateTableConn_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		10, 5)
@@ -56,7 +59,9 @@ func TestCreateTableMySqlConn(t *testing.T) {
 
 }
 
-func TestAddOneRecordMySqlConn(t *testing.T) {
+func Test_MySql_AddOneRecordConn_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -126,7 +131,9 @@ func TestAddOneRecordMySqlConn(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordMySqlConn(t *testing.T) {
+func Test_MySql_UpdateOneRecordConn_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -211,7 +218,9 @@ func TestUpdateOneRecordMySqlConn(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordMySqlConn(t *testing.T) {
+func Test_MySql_DeleteOneRecordConn_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -285,7 +294,9 @@ func TestDeleteOneRecordMySqlConn(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
+func Test_MySql_UpdateSeveralRecordsConn_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -391,7 +402,9 @@ func TestUpdateSeveralRecordsMySqlConn(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsMySqlConn(t *testing.T) {
+func Test_MySql_UpdateAllRecordsConn_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -497,7 +510,9 @@ func TestUpdateAllRecordsMySqlConn(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsMySqlConn(t *testing.T) {
+func Test_MySql_DeleteAllRecordsConn_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -19,7 +20,9 @@ const (
 	psqlMaxIdleTest        = 0
 )
 
-func TestCreateTablePostgresql(t *testing.T) {
+func Test_Postgresql_CreateTable_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -56,7 +59,9 @@ func TestCreateTablePostgresql(t *testing.T) {
 
 }
 
-func TestAddOneRecordPostgresql(t *testing.T) {
+func Test_Postgresql_AddOneRecord_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -119,7 +124,9 @@ func TestAddOneRecordPostgresql(t *testing.T) {
 
 }
 
-func TestAddOneRecordWFPostgresql(t *testing.T) {
+func Test_Postgresql_AddOneRecordWF_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -184,7 +191,9 @@ func TestAddOneRecordWFPostgresql(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordPostgresql(t *testing.T) {
+func Test_Postgresql_UpdateOneRecord_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -262,7 +271,9 @@ func TestUpdateOneRecordPostgresql(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordPostgresql(t *testing.T) {
+func Test_Postgresql_DeleteOneRecord_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -329,7 +340,9 @@ func TestDeleteOneRecordPostgresql(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
+func Test_Postgresql_UpdateSeveralRecords_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -428,7 +441,9 @@ func TestUpdateSeveralRecordsPostgresql(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsPostgresql(t *testing.T) {
+func Test_Postgresql_UpdateAllRecords_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -527,7 +542,9 @@ func TestUpdateAllRecordsPostgresql(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsPostgresql(t *testing.T) {
+func Test_Postgresql_DeleteAllRecords_08(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

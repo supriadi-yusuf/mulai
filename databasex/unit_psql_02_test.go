@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -27,7 +28,9 @@ type Student struct {
 	Grade int
 }*/
 
-func TestCreateTablePostgresqlConn(t *testing.T) {
+func Test_Postgresql_CreateTableConn_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	postgres, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
 		psqlOtherTest, 10, 5)
@@ -56,7 +59,9 @@ func TestCreateTablePostgresqlConn(t *testing.T) {
 
 }
 
-func TestAddOneRecordPostgresqlConn(t *testing.T) {
+func Test_Postgresql_AddOneRecordConn_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -126,7 +131,9 @@ func TestAddOneRecordPostgresqlConn(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordPostgresqlConn(t *testing.T) {
+func Test_Postgresql_UpdateOneRecordConn_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -211,7 +218,9 @@ func TestUpdateOneRecordPostgresqlConn(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordPostgresqlConn(t *testing.T) {
+func Test_Postgresql_DeleteOneRecordConn_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -285,7 +294,9 @@ func TestDeleteOneRecordPostgresqlConn(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsPostgresqlConn(t *testing.T) {
+func Test_Postgresql_UpdateSeveralRecordsConn_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -391,7 +402,9 @@ func TestUpdateSeveralRecordsPostgresqlConn(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsPostgresqlConn(t *testing.T) {
+func Test_Postgresql_UpdateAllRecordsConn_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -497,7 +510,9 @@ func TestUpdateAllRecordsPostgresqlConn(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsPostgresqlConn(t *testing.T) {
+func Test_Postgresql_DeleteAllRecordsConn_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

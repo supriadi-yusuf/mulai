@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -18,7 +19,9 @@ const (
 	mysqlMaxIdleTest        = 0
 )
 
-func TestCreateTableMySql(t *testing.T) {
+func Test_MySql_CreateTable_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		mysqlMaxConnectionsTest, mysqlMaxIdleTest)
@@ -47,7 +50,9 @@ func TestCreateTableMySql(t *testing.T) {
 
 }
 
-func TestAddOneRecordMySql(t *testing.T) {
+func Test_MySql_AddOneRecord_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -110,7 +115,9 @@ func TestAddOneRecordMySql(t *testing.T) {
 
 }
 
-func TestAddOneRecordWFMySql(t *testing.T) {
+func Test_MySql_AddOneRecordWF_03(t *testing.T) { //with factory
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -175,7 +182,9 @@ func TestAddOneRecordWFMySql(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordMySql(t *testing.T) {
+func Test_MySql_UpdateOneRecord_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -253,7 +262,9 @@ func TestUpdateOneRecordMySql(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordMySql(t *testing.T) {
+func Test_MySql_DeleteOneRecord_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -320,7 +331,9 @@ func TestDeleteOneRecordMySql(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsMySql(t *testing.T) {
+func Test_MySql_UpdateSeveralRecords_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -419,7 +432,9 @@ func TestUpdateSeveralRecordsMySql(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsMySql(t *testing.T) {
+func Test_MySql_UpdateAllRecords_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -518,7 +533,9 @@ func TestUpdateAllRecordsMySql(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsMySql(t *testing.T) {
+func Test_MySql_DeleteAllRecords_08(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

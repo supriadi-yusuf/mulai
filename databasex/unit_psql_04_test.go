@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -27,7 +28,9 @@ const (
 	Grade int
 }*/
 
-func TestCreateTablePostgresqlRollback(t *testing.T) {
+func Test_Postgresql_CreateTableRollback_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	currDb, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
 		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
@@ -56,7 +59,9 @@ func TestCreateTablePostgresqlRollback(t *testing.T) {
 
 }
 
-func TestAddOneRecordPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_AddOneRecordRollback_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -122,7 +127,9 @@ func TestAddOneRecordPostgresqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_UpdateOneRecordRollback_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -207,7 +214,9 @@ func TestUpdateOneRecordPostgresqlRollback(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_DeleteOneRecordRollback_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -281,7 +290,9 @@ func TestDeleteOneRecordPostgresqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_UpdateSeveralRecordsRollback_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -387,7 +398,9 @@ func TestUpdateSeveralRecordsPostgresqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_UpdateAllRecordsRollback_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -493,7 +506,9 @@ func TestUpdateAllRecordsPostgresqlRollback(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsPostgresqlRollback(t *testing.T) {
+func Test_Postgresql_DeleteAllRecordsRollback_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

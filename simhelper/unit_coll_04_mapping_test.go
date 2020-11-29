@@ -1,11 +1,14 @@
 package simhelper
 
 import (
+	"log"
 	"strings"
 	"testing"
 )
 
 func Test_Mapping_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewCollection([]int{1, 2, 3, 4, 5, 6}).MappingValue(func(i int) bool {
 		return i%2 == 1
@@ -26,6 +29,8 @@ func Test_Mapping_01(t *testing.T) {
 }
 
 func Test_Mapping_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewCollection(
 		map[string]int{"one": 1, "two": 2, "three": 3, "four": 4}).MappingValue(
@@ -49,6 +54,8 @@ func Test_Mapping_02(t *testing.T) {
 }
 
 func Test_Mapping_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewCollection([]string{"s1", "s2", "3", "s4"}).MappingValue(
 		func(i string) string {
@@ -74,6 +81,8 @@ func Test_Mapping_03(t *testing.T) {
 }
 
 func Test_Mapping_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewCollection(map[int]string{1: "s1", 2: "s2", 3: "3", 4: "s4"}).MappingValue(
 		func(i string) string {
@@ -101,6 +110,8 @@ func Test_Mapping_04(t *testing.T) {
 
 func Test_Mapping_05(t *testing.T) {
 
+	log.Println(t.Name())
+
 	_, err := NewCollection([]int{1, 2, 3, 4, 5, 6}).MappingValue(func(i float32) bool {
 		return i > 1
 	})
@@ -111,6 +122,8 @@ func Test_Mapping_05(t *testing.T) {
 }
 
 func Test_Mapping_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	_, err := NewCollection(
 		map[int]string{1: "a", 2: "b", 3: "c", 4: "d", 5: "e", 6: "f"}).MappingValue(

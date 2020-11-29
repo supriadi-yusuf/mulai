@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -27,7 +28,9 @@ const (
 	Grade int
 }*/
 
-func TestCreateTableMySqlRollback(t *testing.T) {
+func Test_MySql_CreateTableRollback_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		mysqlMaxConnectionsTest, mysqlMaxIdleTest)
@@ -56,7 +59,9 @@ func TestCreateTableMySqlRollback(t *testing.T) {
 
 }
 
-func TestAddOneRecordMySqlRollback(t *testing.T) {
+func Test_MySql_AddOneRecordRollback_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -122,7 +127,9 @@ func TestAddOneRecordMySqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordMySqlRollback(t *testing.T) {
+func Test_MySql_UpdateOneRecordRollback_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -207,7 +214,9 @@ func TestUpdateOneRecordMySqlRollback(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordMySqlRollback(t *testing.T) {
+func Test_MySql_DeleteOneRecordRollback_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -281,7 +290,9 @@ func TestDeleteOneRecordMySqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsMySqlRollback(t *testing.T) {
+func Test_MySql_UpdateSeveralRecordsRollback_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -387,7 +398,9 @@ func TestUpdateSeveralRecordsMySqlRollback(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsMySqlRollback(t *testing.T) {
+func Test_MySql_UpdateAllRecordsRollback_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -493,7 +506,9 @@ func TestUpdateAllRecordsMySqlRollback(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsMySqlRollback(t *testing.T) {
+func Test_MySql_DeleteAllRecordsRollback_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

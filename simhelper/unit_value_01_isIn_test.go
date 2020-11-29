@@ -1,10 +1,13 @@
 package simhelper
 
 import (
+	"log"
 	"testing"
 )
 
-func Test_value_01(t *testing.T) {
+func Test_IsIn_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewValue(int(10)).IsIn([]int{1, 2, 3, 4, 5, 10})
 	if err != nil {

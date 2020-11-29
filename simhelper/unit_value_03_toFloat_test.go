@@ -1,10 +1,13 @@
 package simhelper
 
 import (
+	"log"
 	"testing"
 )
 
-func Test_value_03(t *testing.T) {
+func Test_ToFloat_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	res, err := NewValue(int(10)).ToFloat()
 	if err != nil {

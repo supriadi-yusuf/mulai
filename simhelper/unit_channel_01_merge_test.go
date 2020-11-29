@@ -1,6 +1,7 @@
 package simhelper
 
 import (
+	"log"
 	"testing"
 )
 
@@ -38,6 +39,8 @@ func sendValStr(unity []string) (ch <-chan string) {
 
 func Test_channel_merge_01(t *testing.T) {
 
+	log.Println(t.Name())
+
 	_, err := MergeChanels()
 	if err == nil {
 		t.Errorf("it should raise error")
@@ -46,6 +49,8 @@ func Test_channel_merge_01(t *testing.T) {
 }
 
 func Test_channel_merge_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	data1 := []int{1, 2, 3, 4}
 	ch := sendValInt(data1)
@@ -74,6 +79,8 @@ func Test_channel_merge_02(t *testing.T) {
 
 func Test_channel_merge_03(t *testing.T) {
 
+	log.Println(t.Name())
+
 	data1 := []string{"ani", "shinta", "ari"}
 	ch := sendValStr(data1)
 	result, err := MergeChanels(ch)
@@ -100,6 +107,8 @@ func Test_channel_merge_03(t *testing.T) {
 }
 
 func Test_channel_merge_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	data1 := []int{1, 2, 3, 4}
 	data2 := []int{5, 6}

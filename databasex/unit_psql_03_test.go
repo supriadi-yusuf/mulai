@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/lib/pq"
@@ -27,7 +28,10 @@ const (
 	Grade int
 }*/
 
-func TestCreateTablePostgresqlCommit(t *testing.T) {
+func Test_Postgresql_CreateTableCommit_01(t *testing.T) {
+
+	log.Println(t.Name())
+
 	currDb, err := NewPostgre(psqlUsernameTest, psqlPasswordTest, psqlHostTest, psqlPortTest, psqlDbTest,
 		psqlOtherTest, psqlMaxConnectionsTest, psqlMaxIdleTest)
 	if err != nil {
@@ -55,7 +59,9 @@ func TestCreateTablePostgresqlCommit(t *testing.T) {
 
 }
 
-func TestAddOneRecordPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_AddOneRecordCommit_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -125,7 +131,9 @@ func TestAddOneRecordPostgresqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_UpdateOneRecordCommit_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -210,7 +218,9 @@ func TestUpdateOneRecordPostgresqlCommit(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_DeleteOneRecordCommit_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -284,7 +294,9 @@ func TestDeleteOneRecordPostgresqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_UpdateSeveralRecordsCommit_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -390,7 +402,9 @@ func TestUpdateSeveralRecordsPostgresqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_UpdateAllRecordsCommit_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -496,7 +510,9 @@ func TestUpdateAllRecordsPostgresqlCommit(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsPostgresqlCommit(t *testing.T) {
+func Test_Postgresql_DeleteAllRecordsCommit_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {

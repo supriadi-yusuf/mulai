@@ -1,10 +1,14 @@
 package simhelper
 
 import (
+	"log"
 	"testing"
 )
 
 func Test_Equal_01(t *testing.T) {
+
+	log.Println(t.Name())
+
 	res, err := NewCollection([]int{1, 2, 3, 4}).IsEqual([]int{1, 2, 3, 4})
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -16,6 +20,9 @@ func Test_Equal_01(t *testing.T) {
 }
 
 func Test_Equal_02(t *testing.T) {
+
+	log.Println(t.Name())
+
 	res, err := NewCollection(map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).IsEqual(
 		map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4})
 	if err != nil {
@@ -29,6 +36,8 @@ func Test_Equal_02(t *testing.T) {
 
 func Test_Equal_03(t *testing.T) {
 
+	log.Println(t.Name())
+
 	res, err := NewCollection([]int{1, 2, 3, 4}).IsEqual([]int{1, 2, 4, 3})
 	if err != nil {
 		t.Fatalf("%s\n", err.Error())
@@ -41,6 +50,9 @@ func Test_Equal_03(t *testing.T) {
 }
 
 func Test_Equal_04(t *testing.T) {
+
+	log.Println(t.Name())
+
 	res, err := NewCollection(map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).IsEqual(
 		map[string]int{"satu": 1, "dua": 2, "tiga": 4, "empat": 3})
 	if err != nil {
@@ -54,6 +66,8 @@ func Test_Equal_04(t *testing.T) {
 
 func Test_Equal_05(t *testing.T) {
 
+	log.Println(t.Name())
+
 	res, err := NewCollection([]string{"father", "mother", "son"}).IsEqual(
 		[]string{"father", "mother", "son"})
 	if err != nil {
@@ -66,6 +80,9 @@ func Test_Equal_05(t *testing.T) {
 }
 
 func Test_Equal_06(t *testing.T) {
+
+	log.Println(t.Name())
+
 	_, err := NewCollection([]int{1, 2, 3, 4}).IsEqual([]float32{1, 2, 3, 4})
 	if err == nil {
 		t.Errorf("type are different")
@@ -73,6 +90,9 @@ func Test_Equal_06(t *testing.T) {
 }
 
 func Test_Equal_07(t *testing.T) {
+
+	log.Println(t.Name())
+
 	_, err := NewCollection(map[string]int{"satu": 1, "dua": 2, "tiga": 3, "empat": 4}).IsEqual(
 		map[string]float32{"satu": 1, "dua": 2, "tiga": 3, "empat": 4})
 	if err == nil {
@@ -81,6 +101,8 @@ func Test_Equal_07(t *testing.T) {
 }
 
 func Test_Equal_08(t *testing.T) {
+
+	log.Println(t.Name())
 
 	type structtest struct {
 		Name   string // beginning of field name must be capital

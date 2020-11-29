@@ -1,11 +1,15 @@
 package simhelper
 
 import (
+	"log"
 	"testing"
 	"time"
 )
 
-func Test_timer_wait_01(t *testing.T) {
+func Test_Wait_01(t *testing.T) {
+
+	log.Println(t.Name())
+
 	d1 := 5 * time.Second
 	startTime := time.Now()
 	Wait(d1)

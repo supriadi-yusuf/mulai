@@ -3,6 +3,7 @@ package databasex
 import (
 	"context"
 	"fmt"
+	"log"
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -27,7 +28,9 @@ const (
 	Grade int
 }*/
 
-func TestCreateTableMySqlCommit(t *testing.T) {
+func Test_MySql_CreateTableCommit_01(t *testing.T) {
+
+	log.Println(t.Name())
 
 	currDb, err := NewMysql(mysqlUsernameTest, mysqlPasswordTest, mysqlHostTest, mysqlPortTest, mysqlDbTest,
 		mysqlMaxConnectionsTest, mysqlMaxIdleTest)
@@ -56,7 +59,9 @@ func TestCreateTableMySqlCommit(t *testing.T) {
 
 }
 
-func TestAddOneRecordMySqlCommit(t *testing.T) {
+func Test_MySql_AddOneRecordCommit_02(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -126,7 +131,9 @@ func TestAddOneRecordMySqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateOneRecordMySqlCommit(t *testing.T) {
+func Test_MySql_UpdateOneRecordCommit_03(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -211,7 +218,9 @@ func TestUpdateOneRecordMySqlCommit(t *testing.T) {
 
 }
 
-func TestDeleteOneRecordMySqlCommit(t *testing.T) {
+func Test_MySql_DeleteOneRecordCommit_04(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -285,7 +294,9 @@ func TestDeleteOneRecordMySqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateSeveralRecordsMySqlCommit(t *testing.T) {
+func Test_MySql_UpdateSeveralRecordsCommit_05(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -391,7 +402,9 @@ func TestUpdateSeveralRecordsMySqlCommit(t *testing.T) {
 
 }
 
-func TestUpdateAllRecordsMySqlCommit(t *testing.T) {
+func Test_MySql_UpdateAllRecordsCommit_06(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
@@ -497,7 +510,9 @@ func TestUpdateAllRecordsMySqlCommit(t *testing.T) {
 
 }
 
-func TestDeleteAllRecordsMySqlCommit(t *testing.T) {
+func Test_MySql_DeleteAllRecordsCommit_07(t *testing.T) {
+
+	log.Println(t.Name())
 
 	// Student is type
 	type Student struct {
